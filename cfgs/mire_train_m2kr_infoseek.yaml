@@ -1,0 +1,77 @@
+experiment:
+    exp_name: "InBatch"
+    description: "mire-infoseek-base_ft"
+    path_suffix: "mire/infoseek/base_ft"
+
+# WandB settings
+wandb_config:
+    enabled: True
+    experiment_name: "${experiment.description}"
+
+# Logger settings
+logger_config:
+    logger_out_dir: "logger/${experiment.path_suffix}"
+    logger_out_file_name: "train.log"  #TODO: add date to log file name
+
+# Dataset settings
+data_config:
+    image_size: 224, 224
+    hard_neg_num: 0
+    in_batch_neg_num: 0  # TODO: Move this to model config
+    shuffle_cand: True
+    returns: null
+    nways: 1
+    dataset_name: "infoseek"
+    m2kr:
+        subset: Infoseek
+        img_dir: data/infoseek_images
+        valid_samples: 512
+
+# DataLoader settings
+dataloader_config:
+    num_workers: 0
+    train_batch_size: 128
+    valid_batch_size: 128
+
+# Trainer settings
+trainer_config:
+    gradient_accumulation_steps: 1
+    num_train_epochs: 5
+    learning_rate: 5e-5
+    warmup_steps: 200
+    eval_steps: 500
+    early_stop: 5  # TODO: we are not using this.
+    print_freq: 50
+    weight_decay: 0.0
+    pretrained_checkpoint: "ckpts/mire/vid2r/base/mire_pretrained.pth"
+    frozen: False
+    linear_frozen: False
+
+# Evaluator settings
+evaluator:
+    enable_eval: True
+    eval_freq: 1
+    print_freq: 10
+
+# Model settings
+model:
+    short_name: "mire"
+    vision_model_name: "openai/clip-vit-base-patch32"
+    colbert_checkpoint: "ckpts/colbertv2.0"
+    gather_embeddings: True
+    num_tokens: 16
+    num_heads: 12
+    hidden_size: 768
+    pretraining: False
+
+ckpt_config:
+    ckpt_dir: "ckpts/${experiment.path_suffix}" # ckpt will be saved to mbeir_dir/mbeir_checkpoint/experiment.path_suffix
+    resume_training: False
+    ckpt_name: ""
+
+# Random seed
+seed: 2024
+
+# Distributed training settings
+dist_config:
+    dist_url: "env://"
