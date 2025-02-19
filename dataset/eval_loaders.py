@@ -242,7 +242,7 @@ class Vid2RLoader(BaseDatasetEvalLoader):
     
 from datasets import load_dataset
 class M2KRLoader(BaseDatasetEvalLoader):
-    repo_id = "BByrneLab/multi_task_multi_modal_knowledge_retrieval_benchmark_M2KR"
+    repo_id = "[REPO_ID]"
     
     def parse_pairs(self, subset, image_dir, split="test", use_instruction=False):
         samples = load_dataset(self.repo_id, subset+"_data", split=split)
