@@ -95,9 +95,8 @@ class QueryGuidedAttentivePooling(nn.Module):
         
         attn_weight = F.softmax(scores, dim=-1) # B, H, Q, K
         attn_output = torch.matmul(attn_weight, value_layer) # B H Q K | B H K D -> B H Q D
-        attn_output = attn_output + query_layer
         attn_output = attn_output.sum(dim=-2) / (t_attn_mask.sum(dim=-2)+1e-15)
-        attn_output = self.o_proj(attn_output) + attn_output
+        attn_output = self.o_proj(attn_output)
         
         if return_relevance:
             return attn_output, attn_weight
