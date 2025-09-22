@@ -42,6 +42,8 @@ pip install -r requirements.txt
     - [ReMuQ](https://github.com/luomancs/ReMuQ)
 
     - [E-VQA](https://huggingface.co/datasets/BByrneLab/M2KR_Images/tree/main/EVQA)
+  
+Our pre-trained checkpoints can be downloaded from the [HuggingFace Hub](https://huggingface.co/Y-J-Ju/MIRe_base_pt).
 
 ## Dataset Construction via the Response-to-Passage Conversion: ViD2R
 
